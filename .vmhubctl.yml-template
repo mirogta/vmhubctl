@@ -1,0 +1,7 @@
+# Hub 3 IP address
+router_ip: '...'
+# Hub 3 admin password
+password:  '...'
+
+log:       'vmhubctl.log'
+logLevel:  'INFO'
