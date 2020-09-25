@@ -149,7 +149,7 @@ func (hub Hub) GetValue(oidName oids.Name) interface{} {
 
 func (hub Hub) SetWifi24GHzEnabled(enabled bool) {
 	currentValue := hub.GetValue(oids.ArrisRouterBssActive24GHz)
-	log.Info("Changing Wifi 2.4Ghz enabled to: %s", enabled)
+	log.Info("Changing Wifi 2.4Ghz enabled to:", enabled)
 	if currentValue.(bool) == enabled {
 		log.Info("NOOP")
 		return
@@ -169,7 +169,7 @@ func (hub Hub) SetWifi24GHzEnabled(enabled bool) {
 
 func (hub Hub) SetWifi5GHzEnabled(enabled bool) {
 	currentValue := hub.GetValue(oids.ArrisRouterBssActive5GHz)
-	log.Info("Changing Wifi 5Ghz enabled to: %s", enabled)
+	log.Info("Changing Wifi 5Ghz enabled to:", enabled)
 	if currentValue.(bool) == enabled {
 		log.Info("NOOP")
 		return
