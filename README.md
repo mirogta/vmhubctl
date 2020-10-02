@@ -20,6 +20,8 @@ GOBIN=$PWD/bin go get golang.org/x/tools/cmd/stringer
 go build -o vmhubctl
 ```
 
+NOTE: The `stringer` command needs to be re-ran after changing `./oids/name.go`.
+
 ## Compile and Install
 
 The idea is to run this on Raspberri Pi connected via a LAN cable to the Wifi router, so that it could turn on and off Wifi at certain times.

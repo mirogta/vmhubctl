@@ -1,8 +1,6 @@
 before:
   hooks:
     - go mod download
-    - mkdir -p bin && GOBIN=$PWD/bin go get golang.org/x/tools/cmd/stringer
-    - ./bin/stringer -type=Name ./oids
 builds:
   - env:
       - CGO_ENABLED=0
