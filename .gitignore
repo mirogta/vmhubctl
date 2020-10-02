@@ -1,2 +1,5 @@
-/*.yml
+bin/
+dist/
 vmhubctl
+vmhubctl.log
+.vmhubctl.yml

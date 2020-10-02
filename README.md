@@ -14,8 +14,9 @@ Create a `.vmhubctl.yml` config file based on the `.vmhubctl.yml-template` file.
 ## How to build
 
 ```cmd
-go get -u golang.org/x/tools/cmd/stringer
-stringer -type=Name ./oids
+mkdir -p bin
+GOBIN=$PWD/bin go get golang.org/x/tools/cmd/stringer
+./bin/stringer -type=Name ./oids
 go build -o vmhubctl
 ```
 
