@@ -8,17 +8,21 @@ import (
 var disableWifiCmd = &cobra.Command{
 	Use:   "wifi",
 	Short: "Disable Wifi Settings",
-	Run:   disableWifi,
+	RunE:  disableWifi,
 }
 
 func init() {
 	disableCmd.AddCommand(disableWifiCmd)
 }
 
-func disableWifi(cmd *cobra.Command, args []string) {
+func disableWifi(cmd *cobra.Command, args []string) error {
 	h := hub.NewHub()
 	defer h.Logout()
-	h.Login()
+	err := h.Login()
+	if err != nil {
+		return err
+	}
 	h.SetWifi24GHzEnabled(false)
 	h.SetWifi5GHzEnabled(false)
+	return nil
 }

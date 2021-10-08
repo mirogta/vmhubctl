@@ -14,7 +14,7 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "vmhubctl",
 	Short: "CLI for VirginMedia Hub 3 using SMNP",
-	Run:   List,
+	RunE:  List,
 }
 
 func Execute() {

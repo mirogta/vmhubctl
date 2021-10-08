@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"github.com/mirogta/vmhubctl/hub"
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -10,22 +9,30 @@ import (
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List a subset of VM Hub 3 settings",
-	Run:   List,
+	RunE:  List,
 }
 
+var listAll bool
+
 func init() {
+	listCmd.Flags().BoolVarP(&listAll, "all", "a", false, "list all discoverable settings")
+
 	rootCmd.AddCommand(listCmd)
 }
 
 // List returns a subset of settings from the VM Hub
-func List(cmd *cobra.Command, args []string) {
+func List(cmd *cobra.Command, args []string) error {
 
 	h := hub.NewHub()
 	defer h.Logout()
 	if err := h.Login(); err != nil {
-		log.Error(err)
-		return
+		return err
 	}
 
-	h.ListAll()
+	if listAll {
+		h.ListAll()
+	} else {
+		h.ListSelected()
+	}
+	return nil
 }

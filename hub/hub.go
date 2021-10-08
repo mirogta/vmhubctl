@@ -77,7 +77,7 @@ func (hub *Hub) initFromConfig() {
 	}
 
 	routerIP, ok := viper.Get("router_ip").(string)
-	if ok == false {
+	if !ok {
 		log.Fatalf("router_ip not set")
 	}
 	hub.routerIP = routerIP
@@ -107,7 +107,7 @@ func (hub *Hub) Login() error {
 	hub.credentialCookie = newCredCookie(hub.routerIP, credential)
 
 	if credential == "" {
-		return errors.New("Unable to log in")
+		return errors.New("unable to log in")
 	}
 
 	return nil
@@ -117,6 +117,9 @@ func (hub Hub) Logout() {
 	client := &http.Client{}
 	logoutURL := fmt.Sprintf("%s/logout?%s", hub.baseURL, adminRequestID)
 	req, err := http.NewRequest("GET", logoutURL, nil)
+	if err != nil {
+		panic(err)
+	}
 	if hub.credentialCookie != nil {
 		req.AddCookie(hub.credentialCookie)
 	}
@@ -128,13 +131,16 @@ func (hub Hub) Logout() {
 }
 
 func (hub Hub) ListAll() {
-	// 	key := arrisRouterMIB + ".1.5.20"
-	// 	value := hub.snmpWalk(arrisRouterMIB + key)
-	// 	for k, v := range value {
-	// 		fmt.Printf("%-36s:\t%s\n", k, v)
-	// 	}
+	key := arrisRouterMIB + ".1.5.20"
+	value := hub.snmpWalk(arrisRouterMIB + key)
+	for k, v := range value {
+		fmt.Printf("%-36s:\t%s\n", k, v)
+	}
+}
 
-	for k, _ := range OIDs {
+func (hub Hub) ListSelected() {
+
+	for k := range OIDs {
 		oid := k
 		title := strcase.ToLowerCamel(oid.String())
 		_, formattedString := hub.snmpGetByOID(oid)
@@ -210,6 +216,9 @@ func (hub Hub) snmpWalk(oids string) map[string]string {
 	url := fmt.Sprintf("%s/walk?oids=%s;%s", hub.baseURL, oids, automationID)
 	log.Debug(url)
 	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		panic(err)
+	}
 	req.AddCookie(hub.credentialCookie)
 	resp, err := client.Do(req)
 	if err != nil {
@@ -241,6 +250,9 @@ func (hub Hub) snmpGet(oid string) string {
 	url := fmt.Sprintf("%s/snmpGet?oids=%s;%s", hub.baseURL, oid, automationID)
 	log.Debug(url)
 	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		panic(err)
+	}
 	req.AddCookie(hub.credentialCookie)
 	resp, err := client.Do(req)
 	if err != nil {
@@ -262,6 +274,9 @@ func (hub Hub) snmpSet(oid string, value string) string {
 	url := fmt.Sprintf("%s/snmpSet?oid=%s=%s;&%s", hub.baseURL, oid, value, automationID)
 	log.Debug(url)
 	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		panic(err)
+	}
 	req.AddCookie(hub.credentialCookie)
 	resp, err := client.Do(req)
 	if err != nil {

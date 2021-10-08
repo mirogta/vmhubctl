@@ -8,7 +8,7 @@ import (
 var rebootCmd = &cobra.Command{
 	Use:   "reboot",
 	Short: "Reboots VM Hub 3",
-	Run:   reboot,
+	RunE:  reboot,
 }
 
 func init() {
@@ -16,11 +16,14 @@ func init() {
 	// enableCmd.Flags().StringP("name", "n", "", "Set a name")
 }
 
-func reboot(cmd *cobra.Command, args []string) {
+func reboot(cmd *cobra.Command, args []string) error {
 
 	h := hub.NewHub()
 	defer h.Logout()
-	h.Login()
-
+	err := h.Login()
+	if err != nil {
+		return err
+	}
 	h.Reboot()
+	return nil
 }
