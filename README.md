@@ -1,5 +1,12 @@
 # vmhubctl
 
+[![GitHub Workflow](https://img.shields.io/github/workflow/status/mirogta/vmhubctl/CI)](https://github.com/mirogta/vmhubctl/actions/workflows/release.yml)
+[![GitHub Issues](https://img.shields.io/github/issues/mirogta/vmhubctl)](https://github.com/mirogta/vmhubctl/issues)
+[![GitHub Release](https://img.shields.io/github/v/release/mirogta/vmhubctl)](https://github.com/mirogta/vmhubctl/releases)
+[![GitHub Downloads](https://img.shields.io/github/downloads/mirogta/vmhubctl/total)](https://github.com/mirogta/vmhubctl/releases)
+[![GitHub Go Mod version](https://img.shields.io/github/go-mod/go-version/mirogta/vmhubctl)](https://github.com/mirogta/vmhubctl/blob/main/go.mod)
+[![GitHub License](https://img.shields.io/github/license/mirogta/vmhubctl)](https://github.com/mirogta/vmhubctl/blob/main/LICENSE)
+
 CLI for VirginMedia Hub 3 using SMNP
 
 ## How to Use
